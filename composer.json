@@ -1,0 +1,8 @@
+{
+    "name": "omniproject/wp-lemme-know",
+    "description": "WordPress plugin which sends e-mail notification for subscribers when a new post is published.",
+    "license": "GPL-2.0",
+    "require": {
+        "swiftmailer/swiftmailer": "^5.4"
+    }
+}
