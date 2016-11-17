@@ -34,6 +34,13 @@ Feel invited to contribute if you can help make this plugin better :-)
 
 Visit https://github.com/omniproject/wp-lemme-know, fork the project, add your feature and create a Pull Request. I'll be happy to review and add your changes.
 
+== Screenshots ==
+
+1. Widget (user view)
+2. Widget (administration area)
+3. Dashboard panel
+4. Plugin settings
+
 == Changelog ==
 
 = v0.1.0 =
