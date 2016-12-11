@@ -17,10 +17,14 @@ if (!file_exists($autoloaderPath)) {
 }
 require_once __DIR__.'/../vendor/autoload.php';
 
-add_action('publish_post', 'wp_lemme_know_publish_callback', 10, 2);
+add_action('transition_post_status', 'wp_lemme_know_publish_callback', 10, 3);
 
-function wp_lemme_know_publish_callback($id, $post)
+function wp_lemme_know_publish_callback($newStatus, $oldStatus, $post)
 {
+    if ('publish' !== $newStatus || 'publish' === $oldStatus) {
+        return;
+    }
+
     wp_lemme_know_send(
         wp_lemme_know_get_subscribers(),
         $post
