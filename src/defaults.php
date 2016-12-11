@@ -37,6 +37,7 @@ class WP_LemmeKnowDefaults
             'smtp_user' => '',
             'smtp_pass' => '',
             'notifications_subscribe' => '1',
+            'notifications_unsubscribe' => '1',
         ];
     }
 

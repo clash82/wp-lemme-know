@@ -158,7 +158,13 @@ function wp_lemme_know_admin_init()
         'wp_lemme_know_plugin',
         'wp_lemme_know_options_notifications'
     );
-
+    add_settings_field(
+        'mail_unsubscribe_notify',
+        __('Unsubscribe', 'wp-lemme-know'),
+        'wp_lemme_know_mail_unsubscribe_notify_callback',
+        'wp_lemme_know_plugin',
+        'wp_lemme_know_options_notifications'
+    );
 };
 
 function wp_lemme_know_validate_callback($input)
@@ -327,5 +333,14 @@ function wp_lemme_know_mail_notify_callback()
         '<label for="wp-lemme-know-options-notifications-subscribe"><input type="checkbox" id="wp-lemme-know-options-notifications-subscribe" name="wp_lemme_know_options[notifications_subscribe]" value="1" %s /> %s</label>',
         checked(1, WP_LemmeKnowDefaults::getInstance()->getOption('notifications_subscribe'), false),
         __('Notify Administrator about the new subscriptions')
+    );
+}
+
+function wp_lemme_know_mail_unsubscribe_notify_callback()
+{
+    printf(
+        '<label for="wp-lemme-know-options-notifications-unsubscribe"><input type="checkbox" id="wp-lemme-know-options-notifications-unsubscribe" name="wp_lemme_know_options[notifications_unsubscribe]" value="1" %s /> %s</label>',
+        checked(1, WP_LemmeKnowDefaults::getInstance()->getOption('notifications_unsubscribe'), false),
+        __('Notify Administrator when user unsubscribe')
     );
 }

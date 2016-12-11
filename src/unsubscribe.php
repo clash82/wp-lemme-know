@@ -58,7 +58,7 @@ function wp_lemme_know_parse_request($wp)
         $tableName = $wpdb->prefix . 'lemme_know_subscribers';
         $hash = $wp->query_vars['hash'];
 
-        $wpdb->get_results(sprintf(
+        $user = $wpdb->get_results(sprintf(
             "SELECT * FROM `%s` WHERE `s_hash`='%s'",
             $tableName,
             $hash
@@ -72,6 +72,16 @@ function wp_lemme_know_parse_request($wp)
         }
 
         $wpdb->delete($tableName, ['s_hash' => $hash]);
+
+        // sends e-mail notification
+        if (WP_LemmeKnowDefaults::getInstance()->getOption('notifications_unsubscribe') === '1') {
+            $adminEmail = get_option('admin_email');
+            wp_mail(
+                $adminEmail,
+                __('[Lemme Know] Unsubscription'),
+                sprintf(__('%s has just been removed from the subscription list'), $user[0]->s_email)
+            );
+        }
 
         wp_die(
             __('You have been successfully removed from our subscription list.'),
