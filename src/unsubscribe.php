@@ -78,8 +78,8 @@ function wp_lemme_know_parse_request($wp)
             $adminEmail = get_option('admin_email');
             wp_mail(
                 $adminEmail,
-                __('[Lemme Know] Unsubscription'),
-                sprintf(__('%s has just been removed from the subscription list'), $user[0]->s_email)
+                sprintf(__('[Lemme Know] %s: Unsubscription'), get_bloginfo('name')),
+                sprintf(__('Existing e-mail has just been removed: %s'), $user[0]->s_email)
             );
         }
 

@@ -57,7 +57,7 @@ function wp_lemme_know_ajax_subscribe_callback()
         $adminEmail = get_option('admin_email');
         wp_mail(
             $adminEmail,
-            __('[Lemme Know] New e-mail subscription'),
+            sprintf(__('[Lemme Know] %s: New e-mail subscription'), get_bloginfo('name')),
             sprintf(__('New e-mail has just been added: %s'), $email)
         );
     }
