@@ -1,9 +1,9 @@
 === Lemme Know ===
 
 Contributors: clash82
-Tags: notifications, e-mail, newsletter
+Tags: notifications, email, newsletter, subscribe2, mailing, smtp
 Requires at least: 4.6
-Tested up to: 4.6.1
+Tested up to: 4.7.0
 Stable tag: trunk
 License: GPLv2
 
@@ -13,7 +13,7 @@ Sends e-mail notification for all subscribers when a new post is published.
 
 This plugin is currently in alpha stage. It includes only basic features like sending e-mail notifications using built-in PHP mail() function or by using SMTP server. Work of this plugin depends mostly on SMTP server configuration.
 
-Lemme Know plugin will allows you to send e-mail notifications only for a small amount of subscribers. There are plans to implement Cron-based solution which will allows to send notifications in portions and bypass server limitations.
+Lemme Know plugin allows you to send e-mail notifications only for a small amount of subscribers. There are plans to implement Cron-based solution which will allows to send notifications in portions and bypass server limitations.
 
 == Installation ==
 
@@ -22,7 +22,7 @@ Lemme Know plugin will allows you to send e-mail notifications only for a small 
 * go to `Settings > Lemme Know` and fill out required settings
 * go to `Themes > Widgets` and add Lemme Know widget to the sidebar
 
-== Todo list ==
+Todo:
 
 * implement Cron-based feature allowing to send e-mails in portions
 * add e-mail list management (add/edit/remove subscribers manually)
@@ -43,8 +43,12 @@ Visit https://github.com/omniproject/wp-lemme-know, fork the project, add your f
 
 == Changelog ==
 
-= v0.1.0 =
+= v0.2.0 =
+* fixed: removed notification sending after post edit (notifications are now sent only after first post publish),
+* added: internal Administrator notifications now includes e-mail unsubscriptions,
+* added: site name is now part of the e-mail's title used when sending internal notifications (useful when using plugin for more than one site).
 
+= v0.1.0 =
 * first alpha release
 
 == Upgrade notice ==
