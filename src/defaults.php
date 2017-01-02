@@ -32,7 +32,7 @@ class WP_LemmeKnowDefaults
             'mailer_type' => 'default',
             'smtp_host' => '',
             'smtp_port' => '25',
-            'smtp_auth_mode' => '',
+            'smtp_auth_mode' => 'LOGIN',
             'smtp_encryption' => '',
             'smtp_user' => '',
             'smtp_pass' => '',

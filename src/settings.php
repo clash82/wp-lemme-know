@@ -279,15 +279,13 @@ function wp_lemme_know_smtp_port_callback()
 
 function wp_lemme_know_smtp_auth_mode_callback()
 {
-    printf('<select name="wp_lemme_know_options[smtp_auth_mode]"><option value="" %s>%s</option>><option value="plain" %s>%s</option><option value="login" %s>%s</option><option value="cram-md5" %s>%s</option></select>',
-        selected(WP_LemmeKnowDefaults::getInstance()->getOption('smtp_auth_mode'), '', false),
-        __('none'),
-        selected(WP_LemmeKnowDefaults::getInstance()->getOption('smtp_auth_mode'), 'plain', false),
-        'plain',
-        selected(WP_LemmeKnowDefaults::getInstance()->getOption('smtp_auth_mode'), 'login', false),
-        'login',
-        selected(WP_LemmeKnowDefaults::getInstance()->getOption('smtp_auth_mode'), 'cram-md5', false),
-        'cram-md5'
+    printf('<select name="wp_lemme_know_options[smtp_auth_mode]"><option value="PLAIN" %s>%s</option><option value="LOGIN" %s>%s</option><option value="CRAM-MD5" %s>%s</option></select>',
+        selected(WP_LemmeKnowDefaults::getInstance()->getOption('smtp_auth_mode'), 'PLAIN', false),
+        'PLAIN',
+        selected(WP_LemmeKnowDefaults::getInstance()->getOption('smtp_auth_mode'), 'LOGIN', false),
+        'LOGIN',
+        selected(WP_LemmeKnowDefaults::getInstance()->getOption('smtp_auth_mode'), 'CRAM-MD5', false),
+        'CRAM-MD5'
     );
 }
 

@@ -8,15 +8,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$autoloaderPath = __DIR__.'/../vendor/autoload.php';
-if (!file_exists($autoloaderPath)) {
-    die (sprintf(
-        'ERROR: file `%s` cannot be found. Did you install all dependencies using `composer install` command?',
-        $autoloaderPath
-    ));
-}
-require_once __DIR__.'/../vendor/autoload.php';
-
 add_action('transition_post_status', 'wp_lemme_know_publish_callback', 10, 3);
 
 function wp_lemme_know_publish_callback($newStatus, $oldStatus, $post)
@@ -48,41 +39,53 @@ function wp_lemme_know_send($subscribers, $post)
     // temporary disable max_execution_time (doesn't work if PHP is running in safe-mode)
     ini_set('max_execution_time', 0);
 
-    $message = Swift_Message::newInstance($options->getOption('mail_title'))
-        ->setFrom($options->getOption('mail_from'), $options->getOption('mail_from_name'))
-        ->setReplyTo($options->getOption('mail_from'), $options->getOption('mail_from_name'))
-        ->setReturnPath($options->getOption('mail_from'))
-        ->setContentType('text/html');
+    require_once ABSPATH.'wp-includes/class-phpmailer.php';
+    $mailer = new PHPMailer(true);
 
-    $transport = Swift_MailTransport::newInstance();
     if ($options->getOption('mailer_type') === 'smtp') {
-        $transport = Swift_SmtpTransport::newInstance($options->getOption('smtp_host'), $options->getOption('smtp_port'))
-            ->setUsername($options->getOption('smtp_user'))
-            ->setPassword($options->getOption('smtp_pass'));
+        require_once ABSPATH.'wp-includes/class-smtp.php';
 
-        if (!empty($options->getOption('smtp_auth_mode'))) {
-            $transport->setAuthMode($options->getOption('smtp_auth_mode'));
-        }
+        $mailer->isSMTP();
+        $mailer->SMTPAutoTLS = false;
+        $mailer->SMTPAuth = true;
+        $mailer->Host = $options->getOption('smtp_host');
+        $mailer->Port = $options->getOption('smtp_port');
+        $mailer->Username = $options->getOption('smtp_user');
+        $mailer->Password = $options->getOption('smtp_pass');
+        $mailer->SMTPSecure = $options->getOption('smtp_encryption');
+        $mailer->AuthType = $options->getOption('smtp_auth_mode');
 
-        if (!empty($options->getOption('smtp_port'))) {
-            $transport->setPort($options->getOption('smtp_port'));
-        }
+        // additional settings for PHP 5.6
+        $mailer->SMTPOptions = [
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true,
+            ]
+        ];
     }
 
-    $mailer = Swift_Mailer::newInstance($transport);
+    $mailer->setFrom($options->getOption('mail_from'), $options->getOption('mail_from_name'));
+    $mailer->isHTML(true);
+    $mailer->Subject = $options->getOption('mail_title');
+    $mailer->CharSet = 'UTF-8';
 
     foreach ($subscribers as $item) {
-        $message->setBody(wp_lemme_know_parse_body(
+        $mailer->clearAddresses();
+        $mailer->clearReplyTos();
+
+        $mailer->Body = wp_lemme_know_parse_body(
             $options->getOption('mail_body'),
             $post,
-            $item['hash'])
+            $item['hash']
         );
-        $message->setTo($item['email'], $item['email']);
+        $mailer->addAddress($item['email'], $item['email']);
+        $mailer->addReplyTo($item['email'], $item['email']);
 
         try {
-            $mailer->send($message);
-        } catch (Swift_TransportException $e) {
-            // do nothing
+            $mailer->send();
+        } catch (Exception $e) {
+            error_log(sprintf('wp-lemme-know error: %s', $e->getMessage()));
         }
     }
 }

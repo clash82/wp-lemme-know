@@ -43,6 +43,9 @@ Visit https://github.com/clash82/wp-lemme-know, fork the project, add your featu
 
 == Changelog ==
 
+= v0.3.0 =
+* replaced SwiftMailer with built-in PHPMailer (decreased plugin size!)
+
 = v0.2.0 =
 * fixed: removed notification sending after post edit (notifications are now sent only after first post publish),
 * added: internal Administrator notifications now includes e-mail unsubscriptions,
