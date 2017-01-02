@@ -5,7 +5,7 @@
 (function (global, doc) {
     'use strict';
 
-    var OmniProject = global.OmniProject = global.OmniProject || {};
+    var clash82 = global.clash82 = global.clash82 || {};
 
     /**
      * Lemme Know.
@@ -13,7 +13,7 @@
      * @class LemmeKnow
      * @param {object} config initial configuration
      */
-    OmniProject.LemmeKnow = function (config) {
+    clash82.LemmeKnow = function (config) {
         this.emailRegexPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
         // default CSS classes
@@ -57,7 +57,7 @@
      *
      * @returns {object} XMLHttpRequest
      */
-    OmniProject.LemmeKnow.prototype.getXMLHttpRequest = function () {
+    clash82.LemmeKnow.prototype.getXMLHttpRequest = function () {
         var xmlHttp;
 
         if (global.XMLHttpRequest) {
@@ -80,7 +80,7 @@
     /**
      * Starts subscription process.
      */
-    OmniProject.LemmeKnow.prototype.subscribe = function () {
+    clash82.LemmeKnow.prototype.subscribe = function () {
         var emailValue = this.emailElement.value,
             xmlHttp = this.getXMLHttpRequest();
 
@@ -134,21 +134,21 @@
     /**
      * Hides all input fields (lock user interface for background tasks).
      */
-    OmniProject.LemmeKnow.prototype.hideInputs = function () {
+    clash82.LemmeKnow.prototype.hideInputs = function () {
         this.fieldsetElement.style.display = 'none';
     };
 
     /**
      * Displays again all input fields.
      */
-    OmniProject.LemmeKnow.prototype.showInputs = function () {
+    clash82.LemmeKnow.prototype.showInputs = function () {
         this.fieldsetElement.style.display = 'block';
     };
 
     /**
      * Displays preloader bar (useful when doing some background tasks).
      */
-    OmniProject.LemmeKnow.prototype.showPreloader = function () {
+    clash82.LemmeKnow.prototype.showPreloader = function () {
         this.statusElement.innerHTML = '';
         this.statusElement.style.display = 'block';
         this.statusElement.classList.add(this.progressClass);
@@ -157,7 +157,7 @@
     /**
      * Hides preloader bar.
      */
-    OmniProject.LemmeKnow.prototype.hidePreloader = function () {
+    clash82.LemmeKnow.prototype.hidePreloader = function () {
         this.statusElement.style.display = 'none';
         this.statusElement.classList.remove(this.progressClass);
     };
@@ -168,7 +168,7 @@
      * @param {string} msg message text to display
      * @param {boolean} isError displays error or success message
      */
-    OmniProject.LemmeKnow.prototype.showMessage = function (msg, isError) {
+    clash82.LemmeKnow.prototype.showMessage = function (msg, isError) {
         this.statusElement.classList.add(isError === undefined || isError === true ? this.errorClass : this.successClass);
         this.statusElement.style.display = 'block';
         this.statusElement.innerHTML = msg;
@@ -177,7 +177,7 @@
     /**
      * Clears status message box.
      */
-    OmniProject.LemmeKnow.prototype.clearStatus = function () {
+    clash82.LemmeKnow.prototype.clearStatus = function () {
         this.statusElement.style.display = 'none';
         this.statusElement.classList.remove(this.errorClass);
         this.statusElement.innerHTML = '';

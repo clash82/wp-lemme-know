@@ -32,7 +32,7 @@ Todo:
 
 Feel invited to contribute if you can help make this plugin better :-)
 
-Visit https://github.com/omniproject/wp-lemme-know, fork the project, add your feature and create a Pull Request. I'll be happy to review and add your changes.
+Visit https://github.com/clash82/wp-lemme-know, fork the project, add your feature and create a Pull Request. I'll be happy to review and add your changes.
 
 == Screenshots ==
 

@@ -20,7 +20,7 @@
 
 <script>
     (function() {
-        new OmniProject.LemmeKnow({
+        new clash82.LemmeKnow({
             widgetId: '<?= $fieldSettings['widget_id']; ?>',
             errorMsg: '<?= $fieldSettings['error_msg']; ?>',
             existsMsg: '<?= $fieldSettings['exists_msg']; ?>',
