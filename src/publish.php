@@ -12,7 +12,14 @@ add_action('transition_post_status', 'wp_lemme_know_publish_callback', 10, 3);
 
 function wp_lemme_know_publish_callback($newStatus, $oldStatus, $post)
 {
-    if ('publish' !== $newStatus || 'publish' === $oldStatus) {
+    // we do not accept updates other than `post` type
+    if ('post' !== get_post_type($post)) {
+        return;
+    }
+
+    // only `publish` status is accepted
+    if ('publish' !== $newStatus
+        || 'publish' === $oldStatus) {
         return;
     }
 
