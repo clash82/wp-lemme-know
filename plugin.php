@@ -66,3 +66,4 @@ require_once 'src/unsubscribe.php';
 require_once 'src/widget.php';
 require_once 'src/publish.php';
 require_once 'src/ajax.php';
+require_once 'src/sender.php';

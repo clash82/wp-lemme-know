@@ -32,7 +32,7 @@ function wp_lemme_know_publish_callback($newStatus, $oldStatus, $post)
 /**
  * Sends e-mails.
  *
- * @param string[] $subscribers
+ * @param array $subscribers
  * @param WP_Post $post
  */
 function wp_lemme_know_send($subscribers, $post)
@@ -43,57 +43,32 @@ function wp_lemme_know_send($subscribers, $post)
         return;
     }
 
-    // temporary disable max_execution_time (doesn't work if PHP is running in safe-mode)
-    ini_set('max_execution_time', 0);
+    $sender = new WP_LemmeKnowNotificationSender(
+        $options->getOption('mailer_type') === 'smtp' ? true : false,
+        $options->getOption('smtp_host'),
+        $options->getOption('smtp_port'),
+        $options->getOption('smtp_user'),
+        $options->getOption('smtp_pass'),
+        $options->getOption('smtp_encryption'),
+        $options->getOption('smtp_auth_mode')
+    );
 
-    require_once ABSPATH.'wp-includes/class-phpmailer.php';
-    $mailer = new PHPMailer(true);
-
-    if ($options->getOption('mailer_type') === 'smtp') {
-        require_once ABSPATH.'wp-includes/class-smtp.php';
-
-        $mailer->isSMTP();
-        $mailer->SMTPAutoTLS = false;
-        $mailer->SMTPAuth = true;
-        $mailer->Host = $options->getOption('smtp_host');
-        $mailer->Port = $options->getOption('smtp_port');
-        $mailer->Username = $options->getOption('smtp_user');
-        $mailer->Password = $options->getOption('smtp_pass');
-        $mailer->SMTPSecure = $options->getOption('smtp_encryption');
-        $mailer->AuthType = $options->getOption('smtp_auth_mode');
-
-        // additional settings for PHP 5.6
-        $mailer->SMTPOptions = [
-            'ssl' => [
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true,
-            ]
-        ];
-    }
-
-    $mailer->setFrom($options->getOption('mail_from'), $options->getOption('mail_from_name'));
-    $mailer->isHTML(true);
-    $mailer->Subject = $options->getOption('mail_title');
-    $mailer->CharSet = 'UTF-8';
+    $sender
+        ->setFrom(
+            $options->getOption('mail_from'),
+            $options->getOption('mail_from_name')
+        )
+        ->setSubject($options->getOption('mail_title'));
 
     foreach ($subscribers as $item) {
-        $mailer->clearAddresses();
-        $mailer->clearReplyTos();
-
-        $mailer->Body = wp_lemme_know_parse_body(
-            $options->getOption('mail_body'),
-            $post,
-            $item['hash']
-        );
-        $mailer->addAddress($item['email'], $item['email']);
-        $mailer->addReplyTo($item['email'], $item['email']);
-
-        try {
-            $mailer->send();
-        } catch (Exception $e) {
-            error_log(sprintf('wp-lemme-know error: %s', $e->getMessage()));
-        }
+        $sender
+            ->setAddress($item['email'])
+            ->setBody(wp_lemme_know_parse_body(
+                $options->getOption('mail_body'),
+                $post,
+                $item['hash']
+            ))
+            ->send();
     }
 }
 
@@ -127,12 +102,12 @@ function wp_lemme_know_get_subscribers()
  * Parses body template by injecting $post details.
  *
  * @param string $body
- * @param WP_Post $post
- * @param string $hash
+ * @param WP_Post|null $post
+ * @param string|null $hash
  *
  * @return string
  */
-function wp_lemme_know_parse_body($body, $post, $hash)
+function wp_lemme_know_parse_body($body, $post = null, $hash = null)
 {
     return str_replace([
         '{{post_title}}',
@@ -143,12 +118,12 @@ function wp_lemme_know_parse_body($body, $post, $hash)
         '{{post_url}}',
         '{{unsubscribe_url}}',
     ], [
-        $post->post_title,
-        $post->post_content,
-        $post->post_excerpt,
-        $post->post_date,
-        $post->post_author,
-        get_permalink($post),
-        sprintf('%s/lemme_know/unsubscribe/%s/', get_site_url(), $hash)
+        $post ? $post->post_title : __('Example title'),
+        $post ? $post->post_content : __('Example content'),
+        $post ? $post->post_excerpt : __('Example excerpt'),
+        $post ? $post->post_date : __('Example post date'),
+        $post ? $post->post_author : __('Example post author'),
+        $post ? get_permalink($post) : '#',
+        sprintf('%s/lemme_know/unsubscribe/%s/', get_site_url(), $hash ? $hash : __('real-hash-will-be-placed-here'))
     ], $body);
 }

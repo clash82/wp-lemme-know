@@ -9,6 +9,32 @@ if (!defined('ABSPATH')) {
 }
 
 add_action(
+    'admin_enqueue_scripts',
+    'wp_lemme_know_admin_enqueue_script'
+);
+
+function wp_lemme_know_admin_enqueue_script()
+{
+    global $pluginData;
+
+    wp_register_style(
+        'wp-lemme-know-admin-style',
+        plugin_dir_url(__FILE__).'../assets/css/style-admin.css',
+        false,
+        $pluginData['Version']
+    );
+    wp_enqueue_style('wp-lemme-know-admin-style');
+
+    wp_enqueue_script(
+        'wp-lemme-know-admin-javascript',
+        plugin_dir_url(__FILE__).'../assets/js/lemme-know-admin.js',
+        false,
+        $pluginData['Version'],
+        false
+    );
+}
+
+add_action(
     'admin_menu',
     create_function('', 'return add_options_page(
         "Lemme Know",
@@ -19,7 +45,8 @@ add_action(
     );')
 );
 
-function wp_lemme_know_options_page() {
+function wp_lemme_know_options_page()
+{
     require_once __DIR__.'/../templates/settings.php';
 }
 
@@ -144,6 +171,21 @@ function wp_lemme_know_admin_init()
         'wp_lemme_know_options_smtp'
     );
 
+    // tests
+    add_settings_section(
+        'wp_lemme_know_options_tests',
+        __('Tests', 'wp-lemme-know'),
+        'wp_lemme_know_tests_callback',
+        'wp_lemme_know_plugin'
+    );
+    add_settings_field(
+        'test_email',
+        __('Provide an e-mail address to send an example notification', 'wp-lemme-know'),
+        'wp_lemme_know_test_email_callback',
+        'wp_lemme_know_plugin',
+        'wp_lemme_know_options_tests'
+    );
+
     // notifications
     add_settings_section(
         'wp_lemme_know_options_notifications',
@@ -200,7 +242,7 @@ function wp_lemme_know_mail_callback()
 function wp_lemme_know_mail_title_callback()
 {
     printf(
-        '<input type="text" name="wp_lemme_know_options[mail_title]" value="%s" class="regular-text ltr" /><p class="description">%s</p>',
+        '<input type="text" id="wp-lemme-know-options-mail-title" name="wp_lemme_know_options[mail_title]" value="%s" class="regular-text ltr" /><p class="description">%s</p>',
         WP_LemmeKnowDefaults::getInstance()->getOption('mail_title'),
         __('text will be used as a title for e-mail notifications')
     );
@@ -209,7 +251,7 @@ function wp_lemme_know_mail_title_callback()
 function wp_lemme_know_mail_from_callback()
 {
     printf(
-        '<input type="text" name="wp_lemme_know_options[mail_from]" value="%s" class="regular-text ltr" /><p class="description">%s</p>',
+        '<input type="text" id="wp-lemme-know-options-mail-from" name="wp_lemme_know_options[mail_from]" value="%s" class="regular-text ltr" /><p class="description">%s</p>',
         WP_LemmeKnowDefaults::getInstance()->getOption('mail_from'),
         __('if empty then no messages will be sent (useful if you want to temporary disable e-mail sending)')
     );
@@ -218,7 +260,7 @@ function wp_lemme_know_mail_from_callback()
 function wp_lemme_know_mail_from_name_callback()
 {
     printf(
-        '<input type="text" name="wp_lemme_know_options[mail_from_name]" value="%s" class="regular-text ltr" />',
+        '<input type="text" id="wp-lemme-know-options-mail-from-name" name="wp_lemme_know_options[mail_from_name]" value="%s" class="regular-text ltr" />',
         WP_LemmeKnowDefaults::getInstance()->getOption('mail_from_name')
     );
 }
@@ -226,7 +268,7 @@ function wp_lemme_know_mail_from_name_callback()
 function wp_lemme_know_mail_body_callback()
 {
     printf(
-        '<textarea name="wp_lemme_know_options[mail_body]" class="large-text" rows="10" cols="50">%s</textarea><p class="description">%s</p>',
+        '<textarea id="wp-lemme-know-options-mail-body" name="wp_lemme_know_options[mail_body]" class="large-text" rows="10" cols="50">%s</textarea><p class="description">%s</p>',
         WP_LemmeKnowDefaults::getInstance()->getOption('mail_body'),
         __('available short codes are: {{post_title}}, {{post_body}}, {{post_excerpt}}, {{post_date}}, {{post_author}}, {{post_url}} and {{unsubscribe_url}}')
     );
@@ -262,7 +304,7 @@ function wp_lemme_know_smtp_callback()
 function wp_lemme_know_smtp_host_callback()
 {
     printf(
-        '<input type="text" name="wp_lemme_know_options[smtp_host]" value="%s" class="regular-text ltr" /><p class="description">%s</p>',
+        '<input type="text" id="wp-lemme-know-options-smtp-host" name="wp_lemme_know_options[smtp_host]" value="%s" class="regular-text ltr" /><p class="description">%s</p>',
         WP_LemmeKnowDefaults::getInstance()->getOption('smtp_host'),
         __('eg. mail.example.com')
     );
@@ -271,7 +313,7 @@ function wp_lemme_know_smtp_host_callback()
 function wp_lemme_know_smtp_port_callback()
 {
     printf(
-        '<input type="number" name="wp_lemme_know_options[smtp_port]" value="%s" class="regular-text ltr" /><p class="description">%s</p>',
+        '<input type="number" id="wp-lemme-know-options-smtp-port" name="wp_lemme_know_options[smtp_port]" value="%s" class="regular-text ltr" /><p class="description">%s</p>',
         WP_LemmeKnowDefaults::getInstance()->getOption('smtp_port'),
         __('eg. 25, 587 (TLS) or 467 (SSL)')
     );
@@ -279,7 +321,7 @@ function wp_lemme_know_smtp_port_callback()
 
 function wp_lemme_know_smtp_auth_mode_callback()
 {
-    printf('<select name="wp_lemme_know_options[smtp_auth_mode]"><option value="PLAIN" %s>%s</option><option value="LOGIN" %s>%s</option><option value="CRAM-MD5" %s>%s</option></select>',
+    printf('<select id="wp-lemme-know-options-smtp-auth-mode" name="wp_lemme_know_options[smtp_auth_mode]"><option value="PLAIN" %s>%s</option><option value="LOGIN" %s>%s</option><option value="CRAM-MD5" %s>%s</option></select>',
         selected(WP_LemmeKnowDefaults::getInstance()->getOption('smtp_auth_mode'), 'PLAIN', false),
         'PLAIN',
         selected(WP_LemmeKnowDefaults::getInstance()->getOption('smtp_auth_mode'), 'LOGIN', false),
@@ -291,7 +333,7 @@ function wp_lemme_know_smtp_auth_mode_callback()
 
 function wp_lemme_know_smtp_encryption_callback()
 {
-    printf('<select name="wp_lemme_know_options[smtp_encryption]"><option value="" %s>%s</option>><option value="tls" %s>%s</option><option value="ssl" %s>%s</option></select>',
+    printf('<select id="wp-lemme-know-options-smtp-encryption" name="wp_lemme_know_options[smtp_encryption]"><option value="" %s>%s</option>><option value="tls" %s>%s</option><option value="ssl" %s>%s</option></select>',
         selected(WP_LemmeKnowDefaults::getInstance()->getOption('smtp_encryption'), '', false),
         __('none'),
         selected(WP_LemmeKnowDefaults::getInstance()->getOption('smtp_encryption'), 'tls', false),
@@ -304,7 +346,7 @@ function wp_lemme_know_smtp_encryption_callback()
 function wp_lemme_know_smtp_user_callback()
 {
     printf(
-        '<input type="text" name="wp_lemme_know_options[smtp_user]" value="%s" class="regular-text ltr" />',
+        '<input type="text" id="wp-lemme-know-options-smtp-user" name="wp_lemme_know_options[smtp_user]" value="%s" class="regular-text ltr" />',
         WP_LemmeKnowDefaults::getInstance()->getOption('smtp_user')
     );
 }
@@ -312,8 +354,42 @@ function wp_lemme_know_smtp_user_callback()
 function wp_lemme_know_smtp_pass_callback()
 {
     printf(
-        '<input type="password" name="wp_lemme_know_options[smtp_pass]" value="%s" class="regular-text ltr" />',
+        '<input type="password" id="wp-lemme-know-options-smtp-pass" name="wp_lemme_know_options[smtp_pass]" value="%s" class="regular-text ltr" />',
         WP_LemmeKnowDefaults::getInstance()->getOption('smtp_pass')
+    );
+}
+
+function wp_lemme_know_tests_callback()
+{
+    printf(
+        '<p>%s</p>',
+        __('Use this option to test above configuration by sending an example e-mail message. Please, be aware that the current on-screen configuration will be used (not the saved one). Remember also that this tool allows you only to check if SMTP configuration is correct. In case of a mail() function, you will not be able to know if message was sent correctly, check your e-mail inbox instead.', 'wp-lemme-know')
+    );
+}
+
+function wp_lemme_know_test_email_callback()
+{
+    printf(
+        '<input type="text" id="wp-lemme-know-admin-test-email" class="regular-text ltr" placeholder="%s" />
+        <br /><br />
+        <button type="button" id="wp-lemme-know-admin-test-send" class="button button-primary">%s</button>
+        <div id="wp-lemme-know-admin-test-results" class="wp-lemme-know-admin-test-results">Results</div>
+        <script>
+            (function() {
+                new clash82.LemmeKnowAdmin({
+                    sendingMsg: "%s",
+                    successMsg: "%s",
+                    errorMsg: "%s",
+                    internalErrorMsg: "%s"
+                });
+            }) ();
+        </script>',
+        __('email@example.com'),
+        __('Send e-mail notification now'),
+        __('Sending test message, please wait...'),
+        __('Congratulations! test e-mail was sent, configuration is correct'),
+        __('ERROR').': '.__("couldn't send an email using current settings"),
+        __('ERROR').': '.__('internal error occurred')
     );
 }
 

@@ -8,8 +8,42 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+add_action('wp_ajax_test_email', 'wp_lemme_know_ajax_test_email_callback');
 add_action('wp_ajax_subscribe', 'wp_lemme_know_ajax_subscribe_callback');
 add_action('wp_ajax_nopriv_subscribe', 'wp_lemme_know_ajax_subscribe_callback');
+
+function wp_lemme_know_ajax_test_email_callback()
+{
+    $sender = new WP_LemmeKnowNotificationSender(
+        $_POST['mailerType'] === 'default' ? false : true,
+        $_POST['hostname'],
+        $_POST['port'],
+        $_POST['user'],
+        $_POST['pass'],
+        $_POST['encryption'],
+        $_POST['authMode']
+    );
+
+    $body = wp_lemme_know_parse_body(stripcslashes($_POST['mailBody']));
+
+    $sender
+        ->setSubject($_POST['mailTitle'])
+        ->setFrom($_POST['mailFrom'], $_POST['mailFromName'])
+        ->setAddress($_POST['email'])
+        ->setBody($body)
+        ->setDebug(true);
+
+    if ($sender->send() === true) {
+        die (json_encode([
+            'status' => 0 // e-mail was successfully sent
+        ]));
+    }
+
+    die (json_encode([
+        'status' => 1, // there were some issues when sending e-mail
+        'results' => $sender->getDebugDetails()
+    ]));
+}
 
 function wp_lemme_know_ajax_subscribe_callback()
 {
