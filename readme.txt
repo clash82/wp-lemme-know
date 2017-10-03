@@ -4,14 +4,16 @@ Contributors: clash82
 Tags: notifications, email, newsletter, subscribe2, mailing, smtp
 Requires at least: 4.6
 Tested up to: 4.8.2
+Requires PHP: 5.4
 Stable tag: trunk
 License: GPLv2
+Donate link: https://www.paypal.me/clash82
 
 Sends e-mail notification for all subscribers when a new post is published.
 
 == Description ==
 
-This plugin is currently in alpha stage. It includes only basic features like sending e-mail notifications using built-in PHP mail() function or by using SMTP server. Work of this plugin depends mostly on SMTP server configuration.
+This plugin is currently in alpha stage. It includes only basic features like sending e-mail notifications using built-in PHP mail() function or by using external SMTP server (recommended). Work of this plugin depends mostly on SMTP server configuration.
 
 Lemme Know plugin allows you to send e-mail notifications only for a small amount of subscribers. There are plans to implement Cron-based solution which will allows to send notifications in portions and bypass server limitations.
 
@@ -43,8 +45,12 @@ Visit https://github.com/clash82/wp-lemme-know, fork the project, add your featu
 
 == Changelog ==
 
+= v0.4.0 =
+* fixed: send notifications only when `post` type content is published,
+* added: new test SMTP configuration option which allows you to test the current configuration by sending an example e-mail.
+
 = v0.3.0 =
-* replaced SwiftMailer with built-in PHPMailer (decreased plugin size!)
+* replaced SwiftMailer with built-in PHPMailer (decreased plugin size!).
 
 = v0.2.0 =
 * fixed: removed notification sending after post edit (notifications are now sent only after first post publish),
@@ -52,7 +58,7 @@ Visit https://github.com/clash82/wp-lemme-know, fork the project, add your featu
 * added: site name is now part of the e-mail's title used when sending internal notifications (useful when using plugin for more than one site).
 
 = v0.1.0 =
-* first alpha release
+* first alpha release.
 
 == Upgrade notice ==
 
