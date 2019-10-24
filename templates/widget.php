@@ -21,6 +21,7 @@
 <script>
     (function() {
         new clash82.LemmeKnow({
+            adminAjaxUrl: '<?= sprintf('%sadmin-ajax.php', get_admin_url()); ?>',
             widgetId: '<?= $fieldSettings['widget_id']; ?>',
             errorMsg: '<?= $fieldSettings['error_msg']; ?>',
             existsMsg: '<?= $fieldSettings['exists_msg']; ?>',

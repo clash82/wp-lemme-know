@@ -16,6 +16,8 @@
     clash82.LemmeKnow = function (config) {
         this.emailRegexPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
+        this.adminAjaxUrl = config.adminAjaxUrl || '//'+ window.location.hostname+'/wp-admin/admin-ajax.php';
+
         // default CSS classes
         this.statusClass = config.statusClass || 'wp-lemme-know-widget-status';
         this.errorClass = config.errorClass || 'wp-lemme-know-widget-error';
@@ -94,7 +96,7 @@
             return;
         }
 
-        xmlHttp.open('POST', '//'+ window.location.hostname+'/wp-admin/admin-ajax.php', true);
+        xmlHttp.open('POST', this.adminAjaxUrl, true);
         xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
         xmlHttp.onreadystatechange = function() {
