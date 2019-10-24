@@ -36,13 +36,15 @@ function wp_lemme_know_admin_enqueue_script()
 
 add_action(
     'admin_menu',
-    create_function('', 'return add_options_page(
-        "Lemme Know",
-        "Lemme Know",
-        "manage_options",
-        "wp-lemme-know",
-        "wp_lemme_know_options_page"
-    );')
+    function() {
+        return add_options_page(
+            'Lemme Know',
+            'Lemme Know',
+            'manage_options',
+            'wp-lemme-know',
+            'wp_lemme_know_options_page'
+        );
+    }
 );
 
 function wp_lemme_know_options_page()

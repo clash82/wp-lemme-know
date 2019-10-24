@@ -125,7 +125,7 @@ class WP_LemmeKnowWidget extends WP_Widget
 
 add_action(
     'widgets_init',
-    create_function('', 'return register_widget(
-        "WP_LemmeKnowWidget"
-    );')
+    function() {
+        register_widget('WP_LemmeKnowWidget');
+    }
 );

@@ -10,11 +10,13 @@ if (!defined('ABSPATH')) {
 
 add_action(
     'wp_dashboard_setup',
-    create_function('', 'return wp_add_dashboard_widget(
-        "wp-lemme-know",
-        "Lemme Know",
-        "wp_lemme_know_dashboard_callback"
-    );')
+    function() {
+        wp_add_dashboard_widget(
+            'wp-lemme-know',
+            'Lemme Know',
+            'wp_lemme_know_dashboard_callback'
+        );
+    }
 );
 
 function wp_lemme_know_dashboard_callback()
