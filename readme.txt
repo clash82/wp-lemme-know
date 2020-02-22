@@ -1,9 +1,9 @@
 === Lemme Know ===
 
 Contributors: clash82
-Tags: notifications, email, newsletter, subscribe2, mailing, smtp
+Tags: notifications, email, newsletter, subscribe2, mailing, smtp, mailing
 Requires at least: 4.6
-Tested up to: 5.2.4
+Tested up to: 5.3.2
 Requires PHP: 5.4
 Stable tag: trunk
 License: GPLv2
@@ -44,6 +44,10 @@ Visit https://github.com/clash82/wp-lemme-know, fork the project, add your featu
 4. Plugin settings
 
 == Changelog ==
+
+= v0.6.0 =
+* fixed: issue related to incorrect admin-ajax.php file path when WP is installed in subdirectory (wp-admin),
+* added: validation if `e-mail from` value is specified when sending test message.
 
 = v0.5.0 =
 * fixed: issue related to incorrect admin-ajax.php file path when WP is installed in subdirectory.
