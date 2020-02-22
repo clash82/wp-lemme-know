@@ -379,6 +379,7 @@ function wp_lemme_know_test_email_callback()
         <script>
             (function() {
                 new clash82.LemmeKnowAdmin({
+                    adminAjaxUrl: "%sadmin-ajax.php",
                     sendingMsg: "%s",
                     successMsg: "%s",
                     errorMsg: "%s",
@@ -388,6 +389,7 @@ function wp_lemme_know_test_email_callback()
         </script>',
         __('email@example.com'),
         __('Send e-mail notification now'),
+        get_admin_url(),
         __('Sending test message, please wait...'),
         __('Congratulations! test e-mail was sent, configuration is correct'),
         __('ERROR').': '.__("couldn't send an email using current settings"),
