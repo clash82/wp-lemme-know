@@ -14,6 +14,13 @@ add_action('wp_ajax_nopriv_subscribe', 'wp_lemme_know_ajax_subscribe_callback');
 
 function wp_lemme_know_ajax_test_email_callback()
 {
+    if (empty($_POST['mailFrom'])) {
+        die (json_encode([
+            'status' => 1, // e-mail from address is missing
+            'results' => __('Please provide E-mail from address'),
+        ]));
+    }
+
     $sender = new WP_LemmeKnowNotificationSender(
         $_POST['mailerType'] === 'default' ? false : true,
         $_POST['hostname'],
@@ -35,13 +42,13 @@ function wp_lemme_know_ajax_test_email_callback()
 
     if ($sender->send() === true) {
         die (json_encode([
-            'status' => 0 // e-mail was successfully sent
+            'status' => 0, // e-mail was successfully sent
         ]));
     }
 
     die (json_encode([
         'status' => 1, // there were some issues when sending e-mail
-        'results' => $sender->getDebugDetails()
+        'results' => $sender->getDebugDetails(),
     ]));
 }
 
@@ -97,7 +104,7 @@ function wp_lemme_know_ajax_subscribe_callback()
     }
 
     die (json_encode([
-        'status' => 0 // e-mail was successfully added
+        'status' => 0, // e-mail was successfully added
     ]));
 }
 
