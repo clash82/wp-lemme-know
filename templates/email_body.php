@@ -6,7 +6,7 @@
 <p>{{post_excerpt}}</p>
 <br><br>
 
-<a href="{{post_url}}" target="_blank">Read more &raquo;</a>
+<a href="{{post_url}}" target="_blank"><?= __('Read more'); ?> &raquo;</a>
 <br><br>
 
 <?= sprintf(__("If you don't want to receive messages like this in the future, please %s."),
