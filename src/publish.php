@@ -119,8 +119,8 @@ function wp_lemme_know_parse_body($body, $post = null, $hash = null)
         '{{unsubscribe_url}}',
     ], [
         $post ? $post->post_title : __('Example title'),
-        $post ? $post->post_content : __('Example content'),
-        $post ? $post->post_excerpt : __('Example excerpt'),
+        $post ? nl2br(trim($post->post_content)) : __('Example content'),
+        $post ? nl2br(trim($post->post_excerpt)) : __('Example excerpt'),
         $post ? $post->post_date : __('Example post date'),
         $post ? $post->post_author : __('Example post author'),
         $post ? get_permalink($post) : '#',
