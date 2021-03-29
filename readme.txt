@@ -3,7 +3,7 @@
 Contributors: clash82
 Tags: notifications, email, newsletter, subscribe2, mailing, smtp
 Requires at least: 4.6
-Tested up to: 5.3.2
+Tested up to: 5.7
 Requires PHP: 5.4
 Stable tag: trunk
 License: GPLv2
@@ -46,6 +46,9 @@ Visit https://github.com/clash82/wp-lemme-know, fork the project, add your featu
 
 == Changelog ==
 
+= v0.8.0 =
+* fixed: PHPMailer paths deprecations.
+
 = v0.7.0 =
 * added: new line is now converted to `<br>` for `{{post_excerpt}}` and `{{post_body}}` tags.
 
@@ -73,4 +76,4 @@ Visit https://github.com/clash82/wp-lemme-know, fork the project, add your featu
 
 == Upgrade notice ==
 
-* nothing for now :-)
+* nothing :-)
