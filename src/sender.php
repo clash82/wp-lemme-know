@@ -8,6 +8,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use PHPMailer\PHPMailer\PHPMailer;
+
 class WP_LemmeKnowNotificationSender
 {
     /** @var PHPMailer */
@@ -37,7 +39,7 @@ class WP_LemmeKnowNotificationSender
         $encryption = null,
         $authMode = null
     ) {
-        require_once ABSPATH.'wp-includes/class-phpmailer.php';
+        require_once ABSPATH.'wp-includes/PHPMailer/PHPMailer.php';
 
         $this->mailer = new PHPMailer(true);
         $this->mailer->isHTML(true);
@@ -51,7 +53,7 @@ class WP_LemmeKnowNotificationSender
         };
 
         if ($smtp) {
-            require_once ABSPATH.'wp-includes/class-smtp.php';
+            require_once ABSPATH.'wp-includes/PHPMailer/SMTP.php';
 
             $this->mailer->isSMTP();
             $this->mailer->SMTPAutoTLS = false;
@@ -81,6 +83,8 @@ class WP_LemmeKnowNotificationSender
      * @param string $name
      *
      * @return WP_LemmeKnowNotificationSender
+     *
+     * @throws \PHPMailer\PHPMailer\Exception
      */
     public function setFrom($email, $name)
     {
@@ -123,6 +127,8 @@ class WP_LemmeKnowNotificationSender
      * @param string $email
      *
      * @return WP_LemmeKnowNotificationSender
+     *
+     * @throws \PHPMailer\PHPMailer\Exception
      */
     public function setAddress($email)
     {
