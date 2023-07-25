@@ -44,7 +44,7 @@ function wp_lemme_know_send($subscribers, $post)
     }
 
     $sender = new WP_LemmeKnowNotificationSender(
-        $options->getOption('mailer_type') === 'smtp' ? true : false,
+        $options->getOption('mailer_type') === 'smtp',
         $options->getOption('smtp_host'),
         $options->getOption('smtp_port'),
         $options->getOption('smtp_user'),

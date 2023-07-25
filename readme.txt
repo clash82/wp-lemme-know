@@ -3,7 +3,7 @@
 Contributors: clash82
 Tags: notifications, email, newsletter, subscribe2, mailing, smtp
 Requires at least: 4.6
-Tested up to: 5.7
+Tested up to: 6.2
 Requires PHP: 5.4
 Stable tag: trunk
 License: GPLv2
@@ -26,7 +26,7 @@ Lemme Know plugin allows you to send e-mail notifications only for a small amoun
 
 Todo:
 
-* implement Cron-based feature allowing to send e-mails in portions
+* implement Cron-based feature allowing to send e-mails in chunks
 * add e-mail list management (add/edit/remove subscribers manually)
 * add e-mail import/export option
 * add e-mail groups
