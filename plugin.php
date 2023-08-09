@@ -23,6 +23,8 @@ add_filter(
     'wp_lemme_know_settings_link'
 );
 
+add_filter('plugin_row_meta', 'wp_lemme_know_row_meta', 10, 2);
+
 if (!function_exists('get_plugins')) {
     require_once ABSPATH . 'wp-admin/includes/plugin.php';
 }

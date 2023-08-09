@@ -16,6 +16,17 @@ function wp_lemme_know_settings_link($links)
     return $links;
 }
 
+function wp_lemme_know_row_meta($meta, $file)
+{
+    if (strpos($file, 'plugin.php') !== false) {
+        $meta = array_merge($meta, [
+            sprintf('<a href="https://github.com/clash82/wp-lemme-know" target="_blank">%s</a>', __('Contribute'))
+        ]);
+    }
+
+    return $meta;
+}
+
 function wp_lemme_know_activation_callback()
 {
     global $wpdb;
