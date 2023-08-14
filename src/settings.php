@@ -65,155 +65,169 @@ function wp_lemme_know_admin_init()
         'wp_lemme_know_validate_callback'
     );
 
-    // general
-    add_settings_section(
-        'wp_lemme_know_options_general',
-        __('General settings', 'wp-lemme-know'),
-        'wp_lemme_know_general_callback',
-        'wp_lemme_know_plugin'
-    );
-    add_settings_field(
-        'styling',
-        __('Styling the widget', 'wp-lemme-know'),
-        'wp_lemme_know_styling_callback',
-        'wp_lemme_know_plugin',
-        'wp_lemme_know_options_general'
-    );
+    $tab = isset($_GET['tab']) ? $_GET['tab'] : null;
 
-    // mail
-    add_settings_section(
-        'wp_lemme_know_options_mail',
-        __('Mail settings', 'wp-lemme-know'),
-        'wp_lemme_know_mail_callback',
-        'wp_lemme_know_plugin'
-    );
-    add_settings_field(
-        'mail_title',
-        __('E-mail title', 'wp-lemme-know'),
-        'wp_lemme_know_mail_title_callback',
-        'wp_lemme_know_plugin',
-        'wp_lemme_know_options_mail'
-    );
-    add_settings_field(
-        'mail_from',
-        __('E-mail from address', 'wp-lemme-know'),
-        'wp_lemme_know_mail_from_callback',
-        'wp_lemme_know_plugin',
-        'wp_lemme_know_options_mail'
-    );
-    add_settings_field(
-        'mail_from_name',
-        __('E-mail from name', 'wp-lemme-know'),
-        'wp_lemme_know_mail_from_name_callback',
-        'wp_lemme_know_plugin',
-        'wp_lemme_know_options_mail'
-    );
-    add_settings_field(
-        'mail_body',
-        __('E-mail body (html)', 'wp-lemme-know'),
-        'wp_lemme_know_mail_body_callback',
-        'wp_lemme_know_plugin',
-        'wp_lemme_know_options_mail'
-    );
-    add_settings_field(
-        'mailer',
-        __('Mailer type', 'wp-lemme-know'),
-        'wp_lemme_know_mailer_callback',
-        'wp_lemme_know_plugin',
-        'wp_lemme_know_options_mail'
-    );
+    if ($tab === WP_LemmeKnowDefaults::WP_LEMME_KNOW_TAB_GENERAL) {
+        add_settings_section(
+            'wp_lemme_know_options_general',
+            null,
+            'wp_lemme_know_general_callback',
+            'wp_lemme_know_plugin'
+        );
+        add_settings_field(
+            'styling',
+            __('Styling the widget', 'wp-lemme-know'),
+            'wp_lemme_know_styling_callback',
+            'wp_lemme_know_plugin',
+            'wp_lemme_know_options_general'
+        );
+    }
 
-    // SMTP
-    add_settings_section(
-        'wp_lemme_know_options_smtp',
-        __('SMTP settings', 'wp-lemme-know'),
-        'wp_lemme_know_smtp_callback',
-        'wp_lemme_know_plugin'
-    );
-    add_settings_field(
-        'smtp_host',
-        __('Hostname', 'wp-lemme-know'),
-        'wp_lemme_know_smtp_host_callback',
-        'wp_lemme_know_plugin',
-        'wp_lemme_know_options_smtp'
-    );
-    add_settings_field(
-        'smtp_port',
-        __('Port number', 'wp-lemme-know'),
-        'wp_lemme_know_smtp_port_callback',
-        'wp_lemme_know_plugin',
-        'wp_lemme_know_options_smtp'
-    );
-    add_settings_field(
-        'smtp_auth_mode',
-        __('Authentication', 'wp-lemme-know'),
-        'wp_lemme_know_smtp_auth_mode_callback',
-        'wp_lemme_know_plugin',
-        'wp_lemme_know_options_smtp'
-    );
-    add_settings_field(
-        'smtp_encryption',
-        __('Encryption', 'wp-lemme-know'),
-        'wp_lemme_know_smtp_encryption_callback',
-        'wp_lemme_know_plugin',
-        'wp_lemme_know_options_smtp'
-    );
-    add_settings_field(
-        'smtp_user',
-        __('Username', 'wp-lemme-know'),
-        'wp_lemme_know_smtp_user_callback',
-        'wp_lemme_know_plugin',
-        'wp_lemme_know_options_smtp'
-    );
-    add_settings_field(
-        'smtp_pass',
-        __('Password', 'wp-lemme-know'),
-        'wp_lemme_know_smtp_pass_callback',
-        'wp_lemme_know_plugin',
-        'wp_lemme_know_options_smtp'
-    );
+    if ($tab === WP_LemmeKnowDefaults::WP_LEMME_KNOW_TAB_MAIL_SETTINGS) {
+        add_settings_section(
+            'wp_lemme_know_options_mail',
+            null,
+            'wp_lemme_know_mail_callback',
+            'wp_lemme_know_plugin'
+        );
+        add_settings_field(
+            'mail_title',
+            __('E-mail title', 'wp-lemme-know'),
+            'wp_lemme_know_mail_title_callback',
+            'wp_lemme_know_plugin',
+            'wp_lemme_know_options_mail'
+        );
+        add_settings_field(
+            'mail_from',
+            __('E-mail from address', 'wp-lemme-know'),
+            'wp_lemme_know_mail_from_callback',
+            'wp_lemme_know_plugin',
+            'wp_lemme_know_options_mail'
+        );
+        add_settings_field(
+            'mail_from_name',
+            __('E-mail from name', 'wp-lemme-know'),
+            'wp_lemme_know_mail_from_name_callback',
+            'wp_lemme_know_plugin',
+            'wp_lemme_know_options_mail'
+        );
+        add_settings_field(
+            'mail_body',
+            __('E-mail body (html)', 'wp-lemme-know'),
+            'wp_lemme_know_mail_body_callback',
+            'wp_lemme_know_plugin',
+            'wp_lemme_know_options_mail'
+        );
+        add_settings_field(
+            'mailer',
+            __('Mailer type', 'wp-lemme-know'),
+            'wp_lemme_know_mailer_callback',
+            'wp_lemme_know_plugin',
+            'wp_lemme_know_options_mail'
+        );
+    }
 
-    // tests
-    add_settings_section(
-        'wp_lemme_know_options_tests',
-        __('Tests', 'wp-lemme-know'),
-        'wp_lemme_know_tests_callback',
-        'wp_lemme_know_plugin'
-    );
-    add_settings_field(
-        'test_email',
-        __('Provide an e-mail address to send an example notification', 'wp-lemme-know'),
-        'wp_lemme_know_test_email_callback',
-        'wp_lemme_know_plugin',
-        'wp_lemme_know_options_tests'
-    );
+    if ($tab === WP_LemmeKnowDefaults::WP_LEMME_KNOW_TAB_SMTP_SETTINGS) {
+        add_settings_section(
+            'wp_lemme_know_options_smtp',
+            null,
+            'wp_lemme_know_smtp_callback',
+            'wp_lemme_know_plugin'
+        );
+        add_settings_field(
+            'smtp_host',
+            __('Hostname', 'wp-lemme-know'),
+            'wp_lemme_know_smtp_host_callback',
+            'wp_lemme_know_plugin',
+            'wp_lemme_know_options_smtp'
+        );
+        add_settings_field(
+            'smtp_port',
+            __('Port number', 'wp-lemme-know'),
+            'wp_lemme_know_smtp_port_callback',
+            'wp_lemme_know_plugin',
+            'wp_lemme_know_options_smtp'
+        );
+        add_settings_field(
+            'smtp_auth_mode',
+            __('Authentication', 'wp-lemme-know'),
+            'wp_lemme_know_smtp_auth_mode_callback',
+            'wp_lemme_know_plugin',
+            'wp_lemme_know_options_smtp'
+        );
+        add_settings_field(
+            'smtp_encryption',
+            __('Encryption', 'wp-lemme-know'),
+            'wp_lemme_know_smtp_encryption_callback',
+            'wp_lemme_know_plugin',
+            'wp_lemme_know_options_smtp'
+        );
+        add_settings_field(
+            'smtp_user',
+            __('Username', 'wp-lemme-know'),
+            'wp_lemme_know_smtp_user_callback',
+            'wp_lemme_know_plugin',
+            'wp_lemme_know_options_smtp'
+        );
+        add_settings_field(
+            'smtp_pass',
+            __('Password', 'wp-lemme-know'),
+            'wp_lemme_know_smtp_pass_callback',
+            'wp_lemme_know_plugin',
+            'wp_lemme_know_options_smtp'
+        );
 
-    // notifications
-    add_settings_section(
-        'wp_lemme_know_options_notifications',
-        __('Notifications', 'wp-lemme-know'),
-        'wp_lemme_know_notifications_callback',
-        'wp_lemme_know_plugin'
-    );
-    add_settings_field(
-        'mail_notify',
-        __('New subscriptions', 'wp-lemme-know'),
-        'wp_lemme_know_mail_notify_callback',
-        'wp_lemme_know_plugin',
-        'wp_lemme_know_options_notifications'
-    );
-    add_settings_field(
-        'mail_unsubscribe_notify',
-        __('Unsubscribe', 'wp-lemme-know'),
-        'wp_lemme_know_mail_unsubscribe_notify_callback',
-        'wp_lemme_know_plugin',
-        'wp_lemme_know_options_notifications'
-    );
+        // tests
+        add_settings_section(
+            'wp_lemme_know_options_tests',
+            __('Tests', 'wp-lemme-know'),
+            'wp_lemme_know_tests_callback',
+            'wp_lemme_know_plugin'
+        );
+        add_settings_field(
+            'test_email',
+            __('Provide an e-mail address to send an example notification', 'wp-lemme-know'),
+            'wp_lemme_know_test_email_callback',
+            'wp_lemme_know_plugin',
+            'wp_lemme_know_options_tests'
+        );
+    }
+
+    if ($tab === WP_LemmeKnowDefaults::WP_LEMME_KNOW_TAB_NOTIFICATIONS) {
+        add_settings_section(
+            'wp_lemme_know_options_notifications',
+            null,
+            'wp_lemme_know_notifications_callback',
+            'wp_lemme_know_plugin'
+        );
+        add_settings_field(
+            'mail_notify',
+            __('New subscriptions', 'wp-lemme-know'),
+            'wp_lemme_know_mail_notify_callback',
+            'wp_lemme_know_plugin',
+            'wp_lemme_know_options_notifications'
+        );
+        add_settings_field(
+            'mail_unsubscribe_notify',
+            __('Unsubscribe', 'wp-lemme-know'),
+            'wp_lemme_know_mail_unsubscribe_notify_callback',
+            'wp_lemme_know_plugin',
+            'wp_lemme_know_options_notifications'
+        );
+    }
 };
 
 function wp_lemme_know_validate_callback($input)
 {
-    return $input;
+    $options = WP_LemmeKnowDefaults::getInstance()->getAllOptions();
+
+    foreach ($options as $name => $v) {
+        if (isset($input[$name])) {
+            $options[$name] = sanitize_text_field($input[$name]);
+        }
+    }
+
+    return $options;
 }
 
 function wp_lemme_know_general_callback()
@@ -290,7 +304,7 @@ function wp_lemme_know_mailer_callback()
         '<label for="wp-lemme-know-options-mailer-smtp"><input type="radio" id="wp-lemme-know-options-mailer-smtp" name="wp_lemme_know_options[mailer_type]" value="smtp" %s /> %s</label><p class="description">%s</p>',
         checked('smtp', WP_LemmeKnowDefaults::getInstance()->getOption('mailer_type'), false),
         __('Use external SMTP server'),
-        __('recommended but requires additional SMTP parameters described below')
+        __('recommended but requires additional SMTP parameters described in the SMTP settings tab')
     );
 }
 
@@ -365,7 +379,7 @@ function wp_lemme_know_tests_callback()
 {
     printf(
         '<p>%s</p>',
-        __('Use this option to test above configuration by sending an example e-mail message. Please, be aware that the current on-screen configuration will be used (not the saved one). Remember also that this tool allows you only to check if SMTP configuration is correct. In case of a mail() function, you will not be able to know if message was sent correctly, check your e-mail inbox instead.', 'wp-lemme-know')
+        __('Use this option to test provided configuration, an example e-mail message will be sent. Be aware that the current on-screen configuration will be used (not the saved one). Remember also that this tool allows you only to check if SMTP configuration is correct. In case of a mail() function, you will not be able to know if message was sent correctly, check your e-mail inbox instead.', 'wp-lemme-know')
     );
 }
 

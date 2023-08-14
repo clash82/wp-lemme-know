@@ -10,6 +10,11 @@ if (!defined('ABSPATH')) {
 
 class WP_LemmeKnowDefaults
 {
+    const WP_LEMME_KNOW_TAB_GENERAL = null;
+    const WP_LEMME_KNOW_TAB_MAIL_SETTINGS = 'mail-settings';
+    const WP_LEMME_KNOW_TAB_SMTP_SETTINGS = 'smtp-settings';
+    const WP_LEMME_KNOW_TAB_NOTIFICATIONS = 'notifications';
+
     /** @var WP_LemmeKnowDefaults */
     private static $instance;
 
@@ -49,6 +54,22 @@ class WP_LemmeKnowDefaults
         }
 
         return self::$instance;
+    }
+
+    /**
+     * Returns all options with defaults or values provided by the user.
+     *
+     * @return array
+     */
+    public function getAllOptions()
+    {
+        $options = [];
+
+        foreach ($this->options as $name => $value) {
+            $options[$name] = $this->getOption($name);
+        }
+
+        return $options;
     }
 
     /**
