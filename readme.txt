@@ -47,7 +47,7 @@ Visit https://github.com/clash82/wp-lemme-know, fork the project, add your featu
 == Changelog ==
 
 = v0.9.0 =
-* added: tabs in the settings page
+* added: tabs in the settings page.
 
 = v0.8.0 =
 * fixed: PHPMailer paths deprecations.
