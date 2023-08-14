@@ -125,12 +125,11 @@ function wp_lemme_know_admin_init()
             'wp_lemme_know_plugin',
             'wp_lemme_know_options_mail'
         );
-    }
 
-    if ($tab === WP_LemmeKnowDefaults::WP_LEMME_KNOW_TAB_SMTP_SETTINGS) {
+        // SMTP settings
         add_settings_section(
             'wp_lemme_know_options_smtp',
-            null,
+            __('SMTP settings', 'wp-lemme-know'),
             'wp_lemme_know_smtp_callback',
             'wp_lemme_know_plugin'
         );
@@ -304,7 +303,7 @@ function wp_lemme_know_mailer_callback()
         '<label for="wp-lemme-know-options-mailer-smtp"><input type="radio" id="wp-lemme-know-options-mailer-smtp" name="wp_lemme_know_options[mailer_type]" value="smtp" %s /> %s</label><p class="description">%s</p>',
         checked('smtp', WP_LemmeKnowDefaults::getInstance()->getOption('mailer_type'), false),
         __('Use external SMTP server'),
-        __('recommended but requires additional SMTP parameters described in the SMTP settings tab')
+        __('recommended but requires additional SMTP parameters described below')
     );
 }
 

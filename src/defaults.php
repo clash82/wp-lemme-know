@@ -12,7 +12,6 @@ class WP_LemmeKnowDefaults
 {
     const WP_LEMME_KNOW_TAB_GENERAL = null;
     const WP_LEMME_KNOW_TAB_MAIL_SETTINGS = 'mail-settings';
-    const WP_LEMME_KNOW_TAB_SMTP_SETTINGS = 'smtp-settings';
     const WP_LEMME_KNOW_TAB_NOTIFICATIONS = 'notifications';
 
     /** @var WP_LemmeKnowDefaults */

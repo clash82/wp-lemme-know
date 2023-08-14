@@ -9,7 +9,6 @@
             <nav class="nav-tab-wrapper">
                 <a href="?page=<?= $_GET['page'] ?>" class="nav-tab <?php if ($tab === WP_LemmeKnowDefaults::WP_LEMME_KNOW_TAB_GENERAL): ?>nav-tab-active<?php endif; ?>"><?= __('General', 'wp-lemme-know') ?></a>
                 <a href="?page=<?= $_GET['page'] ?>&tab=<?= WP_LemmeKnowDefaults::WP_LEMME_KNOW_TAB_MAIL_SETTINGS ?>" class="nav-tab <?php if($tab === WP_LemmeKnowDefaults::WP_LEMME_KNOW_TAB_MAIL_SETTINGS):?>nav-tab-active<?php endif; ?>"><?= __('Mail settings', 'wp-lemme-know') ?></a>
-                <a href="?page=<?= $_GET['page'] ?>&tab=<?= WP_LemmeKnowDefaults::WP_LEMME_KNOW_TAB_SMTP_SETTINGS?>" class="nav-tab <?php if ($tab === WP_LemmeKnowDefaults::WP_LEMME_KNOW_TAB_SMTP_SETTINGS): ?>nav-tab-active<?php endif; ?>"><?= __('SMTP settings', 'wp-lemme-know') ?></a>
                 <a href="?page=<?= $_GET['page'] ?>&tab=<?= WP_LemmeKnowDefaults::WP_LEMME_KNOW_TAB_NOTIFICATIONS ?>" class="nav-tab <?php if ($tab === WP_LemmeKnowDefaults::WP_LEMME_KNOW_TAB_NOTIFICATIONS): ?>nav-tab-active<?php endif; ?>"><?= __('Notifications', 'wp-lemme-know') ?></a>
             </nav>
 
