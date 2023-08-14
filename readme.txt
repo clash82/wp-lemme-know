@@ -42,7 +42,9 @@ Visit https://github.com/clash82/wp-lemme-know, fork the project, add your featu
 1. Widget (user view)
 2. Widget (administration area)
 3. Dashboard panel
-4. Plugin settings
+4. Plugin settings (General tab)
+5. Plugin settings (Notifications tab)
+6. Plugin settings (Mail tab)
 
 == Changelog ==
 
