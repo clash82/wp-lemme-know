@@ -26,8 +26,18 @@ function wp_lemme_know_dashboard_callback()
     $tableName = $wpdb->prefix . 'lemme_know_subscribers';
     $subscriberCount = $wpdb->get_var(sprintf('SELECT COUNT(*) FROM `%s`', $tableName));
 
+    $subscribers = $wpdb->get_results(sprintf("SELECT `s_email`, `s_date` FROM `%s` WHERE `s_confirmed`='yes' ORDER BY `s_date` DESC", $tableName));
+    $results = [];
+    foreach ($subscribers as $subscriber) {
+        $results[] = [
+            'email' => esc_html($subscriber->s_email),
+            'date' => $subscriber->s_date
+        ];
+    }
+
     $settings = [
-        'email_count' => $subscriberCount
+        'email_count' => $subscriberCount,
+        'subscribers' => $results
     ];
 
     require_once __DIR__.'/../templates/dashboard.php';
