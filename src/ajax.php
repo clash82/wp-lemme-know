@@ -56,7 +56,7 @@ function wp_lemme_know_ajax_subscribe_callback()
 {
     global $wpdb;
 
-    $email = strtolower($_POST['email']);
+    $email = esc_html(strtolower($_POST['email']));
     $tableName = $wpdb->prefix . 'lemme_know_subscribers';
 
     header('Content-Type: application/json');
