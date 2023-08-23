@@ -3,7 +3,7 @@
 Contributors: clash82
 Tags: notifications, email, newsletter, subscribe2, mailing, smtp
 Requires at least: 4.6
-Tested up to: 6.3
+Tested up to: 6.3.1
 Requires PHP: 5.6
 Stable tag: trunk
 License: GPLv2
@@ -47,6 +47,9 @@ Visit https://github.com/clash82/wp-lemme-know, fork the project, add your featu
 6. Plugin settings (Mail tab)
 
 == Changelog ==
+
+= v0.10.0 =
+* added: latest 50 subscribers is now displayed in the dashboard panel.
 
 = v0.9.0 =
 * added: tabs in the settings page.
