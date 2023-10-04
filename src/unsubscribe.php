@@ -66,8 +66,8 @@ function wp_lemme_know_parse_request($wp)
 
         if (empty($wpdb->num_rows)) {
             wp_die(
-                __('This address has been already removed from our subscription list.'),
-                __('Unsubscribe')
+                __('This address has been already removed from our subscription list.', 'wp-lemme-know'),
+                __('Unsubscribe', 'wp-lemme-know')
             );
         }
 
@@ -78,14 +78,14 @@ function wp_lemme_know_parse_request($wp)
             $adminEmail = get_option('admin_email');
             wp_mail(
                 $adminEmail,
-                sprintf(__('[Lemme Know] %s: Unsubscription'), get_bloginfo('name')),
-                sprintf(__('Existing e-mail has just been removed: %s'), $user[0]->s_email)
+                sprintf(__('[Lemme Know] %s: Unsubscription', 'wp-lemme-know'), get_bloginfo('name')),
+                sprintf(__('Existing e-mail has just been removed: %s', 'wp-lemme-know'), $user[0]->s_email)
             );
         }
 
         wp_die(
-            __('You have been successfully removed from our subscription list.'),
-            __('Unsubscribe')
+            __('You have been successfully removed from our subscription list.', 'wp-lemme-know'),
+            __('Unsubscribe', 'wp-lemme-know')
         );
     }
 }

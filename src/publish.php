@@ -118,12 +118,12 @@ function wp_lemme_know_parse_body($body, $post = null, $hash = null)
         '{{post_url}}',
         '{{unsubscribe_url}}',
     ], [
-        $post ? $post->post_title : __('Example title'),
-        $post ? nl2br(trim($post->post_content)) : __('Example content'),
-        $post ? nl2br(trim($post->post_excerpt)) : __('Example excerpt'),
-        $post ? $post->post_date : __('Example post date'),
-        $post ? $post->post_author : __('Example post author'),
+        $post ? $post->post_title : __('Example title', 'wp-lemme-know'),
+        $post ? nl2br(trim($post->post_content)) : __('Example content', 'wp-lemme-know'),
+        $post ? nl2br(trim($post->post_excerpt)) : __('Example excerpt', 'wp-lemme-know'),
+        $post ? $post->post_date : __('Example post date', 'wp-lemme-know'),
+        $post ? $post->post_author : __('Example post author', 'wp-lemme-know'),
         $post ? get_permalink($post) : '#',
-        sprintf('%s/lemme_know/unsubscribe/%s/', get_site_url(), $hash ? $hash : __('real-hash-will-be-placed-here'))
+        sprintf('%s/lemme_know/unsubscribe/%s/', get_site_url(), $hash ? $hash : __('real-hash-will-be-placed-here', 'wp-lemme-know'))
     ], $body);
 }

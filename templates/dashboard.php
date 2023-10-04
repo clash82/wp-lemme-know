@@ -1,12 +1,12 @@
-<h3><?= sprintf(__('Total count of subscriptions: %d'), $settings['email_count']) ?></h3>
+<h3><?= sprintf(__('Total count of subscriptions: %d', 'wp-lemme-know'), $settings['email_count']) ?></h3>
 
 <?php if (count($settings['subscribers']) > 0): ?>
     <div class="wp-lemme-know-admin-dashboard-list">
         <table>
             <thead>
                 <tr>
-                    <th><?= __('Email address') ?></th>
-                    <th><?= __('Since') ?></th>
+                    <th><?= __('Email address', 'wp-lemme-know') ?></th>
+                    <th><?= __('Since', 'wp-lemme-know') ?></th>
                 </tr>
             </thead>
             <tbody>

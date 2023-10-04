@@ -242,7 +242,7 @@ function wp_lemme_know_styling_callback()
     printf(
         '<label for="wp-lemme-know-options-embed-css"><input type="checkbox" id="wp-lemme-know-options-embed-css" name="wp_lemme_know_options[embed_css]" value="1" %s /> %s</label>',
         checked(1, WP_LemmeKnowDefaults::getInstance()->getOption('embed_css'), false),
-        __('Embed default CSS provided with this plugin (disable if you want to style the widgets by yourself)')
+        __('Embed default CSS provided with this plugin (disable if you want to style the widgets by yourself)', 'wp-lemme-know')
     );
 }
 
@@ -259,7 +259,7 @@ function wp_lemme_know_mail_title_callback()
     printf(
         '<input type="text" id="wp-lemme-know-options-mail-title" name="wp_lemme_know_options[mail_title]" value="%s" class="regular-text ltr" /><p class="description">%s</p>',
         WP_LemmeKnowDefaults::getInstance()->getOption('mail_title'),
-        __('text will be used as a title for e-mail notifications')
+        __('text will be used as a title for e-mail notifications', 'wp-lemme-know')
     );
 }
 
@@ -268,7 +268,7 @@ function wp_lemme_know_mail_from_callback()
     printf(
         '<input type="text" id="wp-lemme-know-options-mail-from" name="wp_lemme_know_options[mail_from]" value="%s" class="regular-text ltr" /><p class="description">%s</p>',
         WP_LemmeKnowDefaults::getInstance()->getOption('mail_from'),
-        __('if empty then no messages will be sent (useful if you want to temporary disable e-mail sending)')
+        __('if empty then no messages will be sent (useful if you want to temporary disable e-mail sending)', 'wp-lemme-know')
     );
 }
 
@@ -285,7 +285,7 @@ function wp_lemme_know_mail_body_callback()
     printf(
         '<textarea id="wp-lemme-know-options-mail-body" name="wp_lemme_know_options[mail_body]" class="large-text" rows="10" cols="50">%s</textarea><p class="description">%s</p>',
         WP_LemmeKnowDefaults::getInstance()->getOption('mail_body'),
-        __('available short codes are: {{post_title}}, {{post_body}}, {{post_excerpt}}, {{post_date}}, {{post_author}}, {{post_url}} and {{unsubscribe_url}}')
+        __('available short codes are: {{post_title}}, {{post_body}}, {{post_excerpt}}, {{post_date}}, {{post_author}}, {{post_url}} and {{unsubscribe_url}}', 'wp-lemme-know')
     );
 }
 
@@ -294,7 +294,7 @@ function wp_lemme_know_mailer_callback()
     printf(
         '<label for="wp-lemme-know-options-mailer-default"><input type="radio" id="wp-lemme-know-options-mailer-default" name="wp_lemme_know_options[mailer_type]" value="default" %s /> %s</label>',
         checked('default', WP_LemmeKnowDefaults::getInstance()->getOption('mailer_type'), false),
-        __('Use built-in mail() function')
+        __('Use built-in mail() function', 'wp-lemme-know')
     );
 
     echo '<br />';
@@ -302,8 +302,8 @@ function wp_lemme_know_mailer_callback()
     printf(
         '<label for="wp-lemme-know-options-mailer-smtp"><input type="radio" id="wp-lemme-know-options-mailer-smtp" name="wp_lemme_know_options[mailer_type]" value="smtp" %s /> %s</label><p class="description">%s</p>',
         checked('smtp', WP_LemmeKnowDefaults::getInstance()->getOption('mailer_type'), false),
-        __('Use external SMTP server'),
-        __('recommended but requires additional SMTP parameters described below')
+        __('Use external SMTP server', 'wp-lemme-know'),
+        __('recommended but requires additional SMTP parameters described below', 'wp-lemme-know')
     );
 }
 
@@ -321,7 +321,7 @@ function wp_lemme_know_smtp_host_callback()
     printf(
         '<input type="text" id="wp-lemme-know-options-smtp-host" name="wp_lemme_know_options[smtp_host]" value="%s" class="regular-text ltr" /><p class="description">%s</p>',
         WP_LemmeKnowDefaults::getInstance()->getOption('smtp_host'),
-        __('eg. mail.example.com')
+        __('eg. mail.example.com', 'wp-lemme-know')
     );
 }
 
@@ -330,7 +330,7 @@ function wp_lemme_know_smtp_port_callback()
     printf(
         '<input type="number" id="wp-lemme-know-options-smtp-port" name="wp_lemme_know_options[smtp_port]" value="%s" class="regular-text ltr" /><p class="description">%s</p>',
         WP_LemmeKnowDefaults::getInstance()->getOption('smtp_port'),
-        __('eg. 25, 587 (TLS) or 467 (SSL)')
+        __('eg. 25, 587 (TLS) or 467 (SSL)', 'wp-lemme-know')
     );
 }
 
@@ -350,7 +350,7 @@ function wp_lemme_know_smtp_encryption_callback()
 {
     printf('<select id="wp-lemme-know-options-smtp-encryption" name="wp_lemme_know_options[smtp_encryption]"><option value="" %s>%s</option>><option value="tls" %s>%s</option><option value="ssl" %s>%s</option></select>',
         selected(WP_LemmeKnowDefaults::getInstance()->getOption('smtp_encryption'), '', false),
-        __('none'),
+        __('none', 'wp-lemme-know'),
         selected(WP_LemmeKnowDefaults::getInstance()->getOption('smtp_encryption'), 'tls', false),
         'TLS',
         selected(WP_LemmeKnowDefaults::getInstance()->getOption('smtp_encryption'), 'ssl', false),
@@ -400,13 +400,13 @@ function wp_lemme_know_test_email_callback()
                 });
             }) ();
         </script>',
-        __('email@example.com'),
-        __('Send e-mail notification now'),
+        __('email@example.com', 'wp-lemme-know'),
+        __('Send e-mail notification now', 'wp-lemme-know'),
         get_admin_url(),
-        __('Sending test message, please wait...'),
-        __('Congratulations! test e-mail was sent, configuration is correct'),
-        __('ERROR').': '.__("couldn't send an email using current settings"),
-        __('ERROR').': '.__('internal error occurred')
+        __('Sending test message, please wait...', 'wp-lemme-know'),
+        __('Congratulations! test e-mail was sent, configuration is correct', 'wp-lemme-know'),
+        __('ERROR', 'wp-lemme-know').': '.__("couldn't send an email using current settings", 'wp-lemme-know'),
+        __('ERROR', 'wp-lemme-know').': '.__('internal error occurred', 'wp-lemme-know')
     );
 }
 
@@ -423,7 +423,7 @@ function wp_lemme_know_mail_notify_callback()
     printf(
         '<label for="wp-lemme-know-options-notifications-subscribe"><input type="checkbox" id="wp-lemme-know-options-notifications-subscribe" name="wp_lemme_know_options[notifications_subscribe]" value="1" %s /> %s</label>',
         checked(1, WP_LemmeKnowDefaults::getInstance()->getOption('notifications_subscribe'), false),
-        __('Notify Administrator about the new subscriptions')
+        __('Notify Administrator about the new subscriptions', 'wp-lemme-know')
     );
 }
 
@@ -432,6 +432,6 @@ function wp_lemme_know_mail_unsubscribe_notify_callback()
     printf(
         '<label for="wp-lemme-know-options-notifications-unsubscribe"><input type="checkbox" id="wp-lemme-know-options-notifications-unsubscribe" name="wp_lemme_know_options[notifications_unsubscribe]" value="1" %s /> %s</label>',
         checked(1, WP_LemmeKnowDefaults::getInstance()->getOption('notifications_unsubscribe'), false),
-        __('Notify Administrator when user unsubscribe')
+        __('Notify Administrator when user unsubscribe', 'wp-lemme-know')
     );
 }

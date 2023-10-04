@@ -17,7 +17,7 @@ function wp_lemme_know_ajax_test_email_callback()
     if (empty($_POST['mailFrom'])) {
         die (json_encode([
             'status' => 1, // e-mail from address is missing
-            'results' => __('Please provide E-mail from address'),
+            'results' => __('Please provide E-mail from address', 'wp-lemme-know'),
         ]));
     }
 
@@ -98,8 +98,8 @@ function wp_lemme_know_ajax_subscribe_callback()
         $adminEmail = get_option('admin_email');
         wp_mail(
             $adminEmail,
-            sprintf(__('[Lemme Know] %s: New e-mail subscription'), get_bloginfo('name')),
-            sprintf(__('New e-mail has just been added: %s'), $email)
+            sprintf(__('[Lemme Know] %s: New e-mail subscription', 'wp-lemme-know'), get_bloginfo('name')),
+            sprintf(__('New e-mail has just been added: %s', 'wp-lemme-know'), $email)
         );
     }
 

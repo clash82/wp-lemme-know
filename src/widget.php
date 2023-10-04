@@ -17,7 +17,7 @@ class WP_LemmeKnowWidget extends WP_Widget
     {
         parent::__construct('LemmeKnowWidget', 'Lemme Know', [
             'classname' => 'LemmeKnowWidget',
-            'description' => __('Displays subscription form used for sending notification when new post is published.')
+            'description' => __('Displays subscription form used for sending notification when new post is published.', 'wp-lemme-know')
         ]);
 
         $this->fields = [

@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 
 function wp_lemme_know_settings_link($links)
 {
-    $settingsLink = sprintf('<a href="options-general.php?page=wp-lemme-know">%s</a>', __('Settings'));
+    $settingsLink = sprintf('<a href="options-general.php?page=wp-lemme-know">%s</a>', __('Settings', 'wp-lemme-know'));
     array_unshift($links, $settingsLink);
 
     return $links;
@@ -20,7 +20,7 @@ function wp_lemme_know_row_meta($meta, $file)
 {
     if (strpos($file, 'plugin.php') !== false) {
         $meta = array_merge($meta, [
-            sprintf('<a href="https://github.com/clash82/wp-lemme-know" target="_blank">%s</a>', __('Contribute'))
+            sprintf('<a href="https://github.com/clash82/wp-lemme-know" target="_blank">%s</a>', __('Contribute', 'wp-lemme-know'))
         ]);
     }
 

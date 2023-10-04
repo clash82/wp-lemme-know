@@ -29,9 +29,9 @@ class WP_LemmeKnowDefaults
 
         $this->options = [
             'embed_css' => '1',
-            'mail_title' => __('New post has just been published'),
+            'mail_title' => __('New post has just been published', 'wp-lemme-know'),
             'mail_from' => '',
-            'mail_from_name' => __('Your postman'),
+            'mail_from_name' => __('Your postman', 'wp-lemme-know'),
             'mail_body' => $mailBody,
             'mailer_type' => 'default',
             'smtp_host' => '',
