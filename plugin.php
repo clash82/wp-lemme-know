@@ -4,7 +4,7 @@
 Plugin Name: Lemme Know
 Plugin URI:  https://github.com/clash82/wp-lemme-know
 Description: Sends e-mail notification for subscribers when a new post is published.
-Version:     0.10.0
+Version:     0.10.1
 Author:      Rafał Toborek
 Author URI:  https://kontakt.toborek.info
 License:     GPLv2
