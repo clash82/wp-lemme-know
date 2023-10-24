@@ -3,7 +3,7 @@
 Contributors: clash82
 Tags: notifications, email, newsletter, subscribe2, mailing, smtp
 Requires at least: 4.6
-Tested up to: 6.3.2
+Tested up to: 6.4
 Requires PHP: 5.6
 Stable tag: trunk
 License: GPLv2
