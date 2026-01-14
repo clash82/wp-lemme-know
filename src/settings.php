@@ -222,7 +222,13 @@ function wp_lemme_know_validate_callback($input)
 
     foreach ($options as $name => $v) {
         if (isset($input[$name])) {
-            $options[$name] = sanitize_text_field($input[$name]);
+            // we don't want to sanitize text for mail body, tags should be included
+            if ($name !== 'mail_body') {
+                $options[$name] = sanitize_text_field($input[$name]);
+
+                continue;
+            }
+            $options[$name] = $input[$name];
         }
     }
 
